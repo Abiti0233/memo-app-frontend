@@ -23,7 +23,8 @@ const restrictEnvAccess = tseslint.config(
 				{
 					object: "process",
 					property: "env",
-					message: "Use `import { env } from '@/env'` instead to ensure validated types.",
+					message:
+						"Use `import { env } from '@/env'` instead to ensure validated types.",
 				},
 			],
 			"no-restricted-imports": [
@@ -31,7 +32,8 @@ const restrictEnvAccess = tseslint.config(
 				{
 					name: "process",
 					importNames: ["env"],
-					message: "Use `import { env } from '@/env'` instead to ensure validated types.",
+					message:
+						"Use `import { env } from '@/env'` instead to ensure validated types.",
 				},
 			],
 		},
@@ -67,7 +69,10 @@ const reactConfig = [
 			// https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-useless-fragment.md
 			"react/jsx-no-useless-fragment": ["error", { allowExpressions: true }],
 			// https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/function-component-definition.md
-			"react/function-component-definition": ["error", { unnamedComponents: "function-expression" }],
+			"react/function-component-definition": [
+				"error",
+				{ unnamedComponents: "function-expression" },
+			],
 			// https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/jsx-filename-extension.md
 			"react/jsx-filename-extension": ["error", { extensions: [".tsx"] }],
 			// https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules/no-danger.md
@@ -163,9 +168,15 @@ export default tseslint.config(
 				},
 			],
 			// https://typescript-eslint.io/rules/no-unused-vars
-			"@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
+			"@typescript-eslint/no-unused-vars": [
+				"error",
+				{ argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+			],
 			// https://typescript-eslint.io/rules/consistent-type-imports
-			"@typescript-eslint/consistent-type-imports": ["error", { fixStyle: "inline-type-imports" }],
+			"@typescript-eslint/consistent-type-imports": [
+				"error",
+				{ fixStyle: "inline-type-imports" },
+			],
 			// https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/filename-case.md
 			"unicorn/filename-case": ["error", { case: "kebabCase" }],
 			// https://eslint.org/docs/latest/rules/no-console

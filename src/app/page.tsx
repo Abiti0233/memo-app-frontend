@@ -1,5 +1,3 @@
 export default function Page() {
-  return (
-    <p>コンテンツページ</p>
-  );
+	return <p>コンテンツページ</p>;
 }
