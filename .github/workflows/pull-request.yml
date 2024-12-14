@@ -1,17 +1,35 @@
-name: Code Check
+name: Pull Request
 
 on:
   push:
   pull_request:
 
 jobs:
-  quality:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Biome
-        uses: biomejs/setup-biome@v2
+
+      - name: Install npm
+        uses: actions/setup-node@v4
+        with:
+          package_json_file: package.json
+          dest: ~/setup-npm
+          run_install: null
+          standalone: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run test
+        run: npm run lint:fix && npm run biome:fix
+
         with:
           version: latest
       - name: Run Biome
