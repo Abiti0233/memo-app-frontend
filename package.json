@@ -6,11 +6,10 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "biome lint .",
-    "lint:fix": "biome lint --write .",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
     "format": "biome format .",
-    "format:fix": "biome format --write .",
-    "check": "biome check --apply ."
+    "format:fix": "biome format --write ."
   },
   "dependencies": {
     "next": "15.1.0",
