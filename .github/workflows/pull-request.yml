@@ -11,14 +11,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install npm
-        uses: actions/setup-node@v4
-        with:
-          package_json_file: package.json
-          dest: ~/setup-npm
-          run_install: null
-          standalone: false
-
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
@@ -29,8 +21,3 @@ jobs:
 
       - name: Run test
         run: npm run lint:fix && npm run biome:fix
-
-        with:
-          version: latest
-      - name: Run Biome
-        run: biome ci .
