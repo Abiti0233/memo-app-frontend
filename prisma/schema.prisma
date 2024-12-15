@@ -14,79 +14,122 @@ datasource db {
   directUrl         = env("POSTGRES_URL_NON_POOLING")
 }
 
+model Account {
+  userId String
+  type String
+  provider String
+  providerAccountId String
+  refresh_token String?
+  access_token String?
+  expires_at Int?
+  token_type String?
+  scope String?
+  id_token String?
+  session_state String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String @unique
+  userId String
+  expires DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model VerificationToken {
+  identifier String
+  token String
+  expires DateTime
+
+  @@id([identifier, token])
+}
+
 model User {
-  id      Int      @id @default(autoincrement())
-  name    String
+  id      String      @id @default(uuid())
+  name    String?
   email   String   @unique
-  password String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  emailVerified DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   // Memo[] は、Memo テーブルとの 1 対多の関係を表す。
   memos Memo[]
   bookmarks Bookmark[]
   userSettings UserSetting?
   categories Category[]
+  accounts Account[]
+  sessions Session[]
 }
 
 model Memo {
-  id  Int @id @default(autoincrement())
-  user_id Int
+  id  String @id @default(uuid())
+  userId String
   title String
   content String
   is_archived Boolean @default(false)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  user User @relation(fields: [user_id], references: [id])
+  user User @relation(fields: [userId], references: [id])
   categories   MemoCategory[] @relation("MemoCategories")
   bookmarks Bookmark[]
 }
 
 model Category {
-  id  Int @id @default(autoincrement())
-  user_id Int
+  id  String @id @default(uuid())
+  userId String
   name String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   memoCategories MemoCategory[] @relation("CategoryMemos")
 
-  user User @relation(fields: [user_id], references: [id])
+  user User @relation(fields: [userId], references: [id])
 
   // 各ユーザーが同じカテゴリ名を持てないようにする
-  @@unique ([user_id, name], name: "user_category_name_unique")
+  @@unique ([userId, name], name: "user_category_name_unique")
 }
 
 model MemoCategory {
-  memo_id Int
-  category_id Int
+  memoId String
+  categoryId String
 
-  memo Memo @relation("MemoCategories", fields: [memo_id], references: [id])
-  category Category @relation("CategoryMemos", fields: [category_id], references: [id])
+  memo Memo @relation("MemoCategories", fields: [memoId], references: [id])
+  category Category @relation("CategoryMemos", fields: [categoryId], references: [id])
 
   // 複合主キーを設定し、同じメモとカテゴリの組み合わせが重複しないようにする
-  @@id ([memo_id, category_id])
+  @@id ([memoId, categoryId])
   
   // memo_idとcategory_idの組み合わせにインデックスを設定
-  @@index ([memo_id, category_id], name: "memo_category_index")
+  @@index ([memoId, categoryId], name: "memo_category_index")
 }
 
 model Bookmark {
-  id  Int @id @default(autoincrement())
-  user_id Int
-  memo_id Int
-  created_at DateTime @default(now())
+  id  String @id @default(uuid())
+  userId String
+  memoId String
+  createdAt DateTime @default(now())
 
-  user User @relation(fields: [user_id], references: [id])
-  memo Memo @relation(fields: [memo_id], references: [id])
+  user User @relation(fields: [userId], references: [id])
+  memo Memo @relation(fields: [memoId], references: [id])
 
   // user_idとmemo_idの組み合わせにインデックスを設定
-  @@index ([user_id, memo_id], name: "user_memo_index")
+  @@index ([userId, memoId], name: "user_memo_index")
 }
 
 model UserSetting {
-  user_id Int @id
+  userId String @id
   theme String @default("light")
-  updated_at DateTime @updatedAt
+  updatedAt DateTime @updatedAt
 
-  user User @relation(fields: [user_id], references: [id])
+  user User @relation(fields: [userId], references: [id])
 }
