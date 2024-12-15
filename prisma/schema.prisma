@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("POSTGRES_PRISMA_URL")
+  directUrl         = env("POSTGRES_URL_NON_POOLING")
+}
+
+model User {
+  id      Int      @id @default(autoincrement())
+  name    String
+  email   String   @unique
+  password String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  // Memo[] は、Memo テーブルとの 1 対多の関係を表す。
+  memos Memo[]
+  bookmarks Bookmark[]
+  userSettings UserSetting?
+  categories Category[]
+}
+
+model Memo {
+  id  Int @id @default(autoincrement())
+  user_id Int
+  title String
+  content String
+  is_archived Boolean @default(false)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  user User @relation(fields: [user_id], references: [id])
+  categories   MemoCategory[] @relation("MemoCategories")
+  bookmarks Bookmark[]
+}
+
+model Category {
+  id  Int @id @default(autoincrement())
+  user_id Int
+  name String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  memoCategories MemoCategory[] @relation("CategoryMemos")
+
+  user User @relation(fields: [user_id], references: [id])
+
+  // 各ユーザーが同じカテゴリ名を持てないようにする
+  @@unique ([user_id, name], name: "user_category_name_unique")
+}
+
+model MemoCategory {
+  memo_id Int
+  category_id Int
+
+  memo Memo @relation("MemoCategories", fields: [memo_id], references: [id])
+  category Category @relation("CategoryMemos", fields: [category_id], references: [id])
+
+  // 複合主キーを設定し、同じメモとカテゴリの組み合わせが重複しないようにする
+  @@id ([memo_id, category_id])
+  
+  // memo_idとcategory_idの組み合わせにインデックスを設定
+  @@index ([memo_id, category_id], name: "memo_category_index")
+}
+
+model Bookmark {
+  id  Int @id @default(autoincrement())
+  user_id Int
+  memo_id Int
+  created_at DateTime @default(now())
+
+  user User @relation(fields: [user_id], references: [id])
+  memo Memo @relation(fields: [memo_id], references: [id])
+
+  // user_idとmemo_idの組み合わせにインデックスを設定
+  @@index ([user_id, memo_id], name: "user_memo_index")
+}
+
+model UserSetting {
+  user_id Int @id
+  theme String @default("light")
+  updated_at DateTime @updatedAt
+
+  user User @relation(fields: [user_id], references: [id])
+}
