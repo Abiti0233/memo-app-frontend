@@ -15,6 +15,13 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
 	title: "メモアプリ（最強）",
 	description: "メモアプリの最強バージョンです。",
+	icons: [
+		{
+			rel: "icon",
+			type: "image/png",
+			url: "/favicon.ico",
+		},
+	],
 };
 
 export default function RootLayout({
