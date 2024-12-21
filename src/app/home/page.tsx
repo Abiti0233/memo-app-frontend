@@ -1,21 +1,10 @@
-export default function Page() {
+import SideBar from "@/components/layout/side-bar";
+
+export default async function Page() {
 	return (
 		<main>
 			<div className="flex">
-				<section className="w-1/5 bg-grey-50">
-					{/* 左の固定部分(コンポーネント化してね) 固定で */}
-					<div className="h-screen px-6 pt-10">
-						<h2 className="pb-16 text-center text-headline-l">メモアプリ</h2>
-						<div>
-							ここはメモ一覧、ブックマーク、最近削除した項目はデフォルトで表示
-						</div>
-						<br />
-						<div>各ユーザーが作成したカテゴリーもここに表示</div>
-						<button className="w-full rounded-full py-2 text-body-m-bold hover:bg-grey-100">
-							カテゴリーを追加する +
-						</button>
-					</div>
-				</section>
+				<SideBar />
 				<section className="w-full">
 					<div className="flex flex-col">
 						{/* //TODO: コンポーネント化してください。 */}
