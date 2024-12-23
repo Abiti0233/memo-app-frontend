@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 export default function MemoItem({
 	title,
 	content,
@@ -24,19 +25,39 @@ export default function MemoItem({
 			: content;
 
 	return (
-		<button
-			className={`flex w-full flex-col gap-2 border-b border-solid border-grey-200 p-4 ${
+		<div
+			className={`relative flex w-full flex-col gap-2 border-b border-solid border-grey-200 p-4 ${
 				isSelected
 					? "bg-blue-500 text-white"
 					: "hover:bg-grey-100 active:bg-blue-500 active:text-white"
 			}`}
 			onClick={onSelect}
 		>
-			<h4 className="text-body-m-bold">{title}</h4>
-			<div className="flex gap-4 text-caption-m">
-				<p>{formattedDisplayDate}</p>
-				<p>{displayContent}</p>
+			<div className="flex items-center justify-between">
+				<div>
+					<h4 className="text-body-m-bold">{title}</h4>
+					<div className="flex gap-4 text-caption-m">
+						<p>{formattedDisplayDate}</p>
+						<p>{displayContent}</p>
+					</div>
+				</div>
+				<button className="group relative size-[20px]">
+					<Image
+						src="/assets/icon/bookmark.svg"
+						alt="ブックマークのアイコン"
+						fill
+						priority
+						className="opacity-100 transition-opacity duration-200 ease-out group-hover:opacity-0"
+					/>
+					<Image
+						src="/assets/icon/bookmark--yellow.svg"
+						alt="ブックマークのアイコン"
+						fill
+						priority
+						className="opacity-0 transition-opacity duration-200 ease-out group-hover:opacity-100"
+					/>
+				</button>
 			</div>
-		</button>
+		</div>
 	);
 }
