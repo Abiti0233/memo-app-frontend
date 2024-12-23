@@ -2,8 +2,8 @@ import Image from "next/image";
 
 export default function Header() {
 	return (
-		<div className="h-14 w-full bg-grey-200 py-2 pr-4">
-			<div className="flex h-full pl-4">
+		<div className="h-14 w-full bg-grey-200 px-4 py-2">
+			<div className="flex h-full">
 				<div className="flex items-center gap-3">
 					<button className="p-1 hover:rounded-full hover:bg-grey-100">
 						<Image

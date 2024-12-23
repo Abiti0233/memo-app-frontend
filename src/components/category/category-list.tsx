@@ -1,11 +1,11 @@
-import { type Category } from "@/types/category/category";
+import { type Category } from "@prisma/client";
 import CategoryItem from "./category-item";
 
 export default function CategoryList({
 	category,
 	className,
 }: {
-	category: Category;
+	category: Category[];
 	className?: string;
 }) {
 	return (
