@@ -42,20 +42,41 @@ export default function MemoItem({
 					</div>
 				</div>
 				<button className="group relative size-[20px]">
-					<Image
-						src="/assets/icon/bookmark.svg"
-						alt="ブックマークのアイコン"
-						fill
-						priority
-						className="opacity-100 transition-opacity duration-200 ease-out group-hover:opacity-0"
-					/>
-					<Image
-						src="/assets/icon/bookmark--yellow.svg"
-						alt="ブックマークのアイコン"
-						fill
-						priority
-						className="opacity-0 transition-opacity duration-200 ease-out group-hover:opacity-100"
-					/>
+					{isSelected ? (
+						<>
+							<Image
+								src="/assets/icon/bookmark--white.svg"
+								alt="ブックマークのアイコン（選択中）"
+								fill
+								priority
+								className="opacity-100 transition-opacity duration-200 ease-out"
+							/>
+							<Image
+								src="/assets/icon/bookmark--yellow.svg"
+								alt="ブックマークのアイコン（選択中でホバー時）"
+								fill
+								priority
+								className="opacity-0 transition-opacity duration-200 ease-out group-hover:opacity-100"
+							/>
+						</>
+					) : (
+						<>
+							<Image
+								src="/assets/icon/bookmark.svg"
+								alt="ブックマークのアイコン（未選択）"
+								fill
+								priority
+								className="opacity-100 transition-opacity duration-200 ease-out group-hover:opacity-0"
+							/>
+							<Image
+								src="/assets/icon/bookmark--yellow.svg"
+								alt="ブックマークのアイコン（ホバー時）"
+								fill
+								priority
+								className="opacity-0 transition-opacity duration-200 ease-out group-hover:opacity-100"
+							/>
+						</>
+					)}
 				</button>
 			</div>
 		</div>
