@@ -1,0 +1,98 @@
+// メモのデータを取得する
+// メモのサンプルデータ
+export function getMemos() {
+	return memos;
+}
+
+const memos = [
+	{
+		id: "9a7c4b9e-b6c8-4dd6-a56f-e71b5e68333b",
+		userId: "user123",
+		title: "日記",
+		content: "今日は楽しい一日だった。",
+		is_archived: false,
+		createdAt: new Date("2024-12-21T09:54:24.031426"),
+		updatedAt: new Date("2024-12-21T09:54:24.031438"),
+	},
+	{
+		id: "d3662ff9-6b6d-4bb3-9995-5630135b99ce",
+		userId: "user123",
+		title: "仕事のメモ",
+		content: "明日までに報告書を作成する必要がある。",
+		is_archived: false,
+		createdAt: new Date("2024-12-21T09:54:24.031467"),
+		updatedAt: new Date("2024-12-21T09:54:24.031469"),
+	},
+	{
+		id: "fc7ad2a6-72ab-4a10-a716-4b85194d7f5e",
+		userId: "user123",
+		title: "買い物リスト",
+		content: "牛乳、パン、卵を買う。",
+		is_archived: true,
+		createdAt: new Date("2024-12-21T09:54:24.031486"),
+		updatedAt: new Date("2024-12-21T09:54:24.031488"),
+	},
+	{
+		id: "960ea8ff-d70c-4936-bf61-d2ac7433b90b",
+		userId: "user123",
+		title: "旅行計画",
+		content: "次の休暇に行きたい場所を調べる。",
+		is_archived: true,
+		createdAt: new Date("2024-12-21T09:54:24.031500"),
+		updatedAt: new Date("2024-12-21T09:54:24.031502"),
+	},
+	{
+		id: "42ba2b96-55f9-45f5-9def-1ed3d671c864",
+		userId: "user123",
+		title: "読書記録",
+		content: "新しい小説を読了した。感想を書き留めた。",
+		is_archived: true,
+		createdAt: new Date("2024-12-21T09:54:24.031512"),
+		updatedAt: new Date("2024-12-21T09:54:24.031514"),
+	},
+	{
+		id: "09e7b0d1-d46e-414e-9c56-49a4f5ec9e11",
+		userId: "user123",
+		title: "アイデアノート",
+		content: "次のプロジェクトのアイデアを整理した。",
+		is_archived: false,
+		createdAt: new Date("2024-12-21T09:54:24.031520"),
+		updatedAt: new Date("2024-12-21T09:54:24.031522"),
+	},
+	{
+		id: "f4a0edc9-3f5e-46fa-bba4-7022b15ebf2c",
+		userId: "user123",
+		title: "映画レビュー",
+		content: "映画を観た感想を書き留める。",
+		is_archived: true,
+		createdAt: new Date("2024-12-21T09:54:24.031530"),
+		updatedAt: new Date("2024-12-21T09:54:24.031532"),
+	},
+	{
+		id: "81297b6b-46e4-4783-9194-54e18d3b8e34",
+		userId: "user123",
+		title: "運動記録",
+		content: "ジョギングの時間と距離を記録する。",
+		is_archived: false,
+		createdAt: new Date("2024-12-21T09:54:24.031540"),
+		updatedAt: new Date("2024-12-21T09:54:24.031542"),
+	},
+	{
+		id: "bb5d6274-2b44-49b8-87b3-71dc0e64e7b1",
+		userId: "user123",
+		title: "会議メモ",
+		content: "今日の会議の議題と決定事項をまとめる。",
+		is_archived: true,
+		createdAt: new Date("2024-12-21T09:54:24.031550"),
+		updatedAt: new Date("2024-12-21T09:54:24.031552"),
+	},
+	{
+		id: "02c5e75a-ec5a-45d7-8747-515a3c18be48",
+		userId: "user123",
+		title: "料理レシピ",
+		content: "新しい料理に挑戦してみた。レシピをメモする。",
+		is_archived: false,
+		createdAt: new Date("2024-12-21T09:54:24.031560"),
+		updatedAt: new Date("2024-12-21T09:54:24.031562"),
+	},
+];
