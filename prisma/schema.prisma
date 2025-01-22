@@ -59,7 +59,7 @@ model User {
   name    String?
   email   String   @unique
   emailVerified DateTime?
-
+  password String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   // Memo[] は、Memo テーブルとの 1 対多の関係を表す。
