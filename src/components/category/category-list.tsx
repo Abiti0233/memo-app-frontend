@@ -10,7 +10,7 @@ export default function CategoryList({
 }) {
 	return (
 		<div className={className}>
-			<ul className="flex flex-col gap-8 align-middle">
+			<ul className="flex flex-col gap-4 align-middle">
 				<li>
 					<CategoryItem name="メモ一覧" />
 				</li>

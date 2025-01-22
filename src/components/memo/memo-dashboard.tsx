@@ -12,7 +12,7 @@ export default function MemoDashboard({ memos }: { memos: Memo[] }) {
 			<div className="flex flex-col">
 				<Header />
 				<div className="flex">
-					<div className="h-screen w-[35%] overflow-y-scroll bg-white">
+					<div className="h-screen w-[35%] overflow-y-scroll bg-white pb-[100px]">
 						<MemoList
 							memos={memos}
 							selectedMemoId={selectedMemoId}
