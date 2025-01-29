@@ -1,4 +1,5 @@
 import Image from "next/image";
+import LogoutButton from "../ui/logout-button";
 
 export default function Header() {
 	return (
@@ -22,6 +23,7 @@ export default function Header() {
 						/>
 					</button>
 				</div>
+				<LogoutButton className="ml-10" />
 				<div className="ml-auto w-[256px] pl-2">
 					<input
 						type="text"
