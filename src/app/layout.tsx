@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	title: "メモアプリ（最強）",
+	title: "メモアプリ",
 	description: "メモアプリの最強バージョンです。",
 	icons: [
 		{

@@ -14,14 +14,6 @@ export default function Header() {
 							height={28}
 						/>
 					</button>
-					<button className="p-1 hover:rounded-full hover:bg-grey-100">
-						<Image
-							src="/assets/icon/new.svg"
-							alt="メモ新規作成のアイコン"
-							width={28}
-							height={28}
-						/>
-					</button>
 				</div>
 				<LogoutButton className="ml-10" />
 				<div className="ml-auto w-[256px] pl-2">

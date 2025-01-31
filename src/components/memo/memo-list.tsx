@@ -7,14 +7,15 @@ export default function MemoList({
 	selectedMemoId,
 	setSelectedMemoId,
 }: {
-	memos: Memo[];
+	memos: Memo[] | null;
 	selectedMemoId: string;
 	setSelectedMemoId: (id: string) => void;
 }) {
+	const safeMemos = memos ?? [];
 	return (
 		<ul>
 			<li className="px-6 py-10">
-				{memos.map((memo) => (
+				{safeMemos.map((memo) => (
 					<MemoItem
 						key={memo.id}
 						title={memo.title}
