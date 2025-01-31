@@ -4,12 +4,13 @@ export default function MemoInput({
 	memos,
 	selectedMemoId,
 }: {
-	memos: Memo[];
+	memos: Memo[] | null;
 	selectedMemoId: string;
 }) {
+	const safeMemos = memos ?? [];
 	// 現在選択されているメモがあれば、そのメモのタイトルと内容を表示する
 	// なければ、空のフォームを表示する
-	const memo = memos.find((memo) => memo.id === selectedMemoId);
+	const memo = safeMemos.find((memo) => memo.id === selectedMemoId);
 	return (
 		<div className="flex w-full flex-col px-10 pt-10">
 			<input

@@ -6,7 +6,6 @@ export const env = createEnv({
 		NODE_ENV: z
 			.enum(["development", "production", "stg"])
 			.default("development"),
-		NEXT_PUBLIC_PUBLIC_BASE_URL: z.string().url(),
 	},
 	server: {
 		DATABASE_URL: z.string().url(),
@@ -24,10 +23,10 @@ export const env = createEnv({
 		POSTGRES_URL_NON_POOLING: z.string().url(),
 		POSTGRES_URL_NO_SSL: z.string().url(),
 		POSTGRES_USER: z.string(),
+		API_URL: z.string(),
 	},
 	client: {},
 	experimental__runtimeEnv: {
 		NODE_ENV: process.env.NODE_ENV,
-		NEXT_PUBLIC_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_PUBLIC_BASE_URL,
 	},
 });
