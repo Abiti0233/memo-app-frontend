@@ -6,12 +6,16 @@ export default function MemoInput({
 	temporaryMemo,
 	setTemporaryMemoContent,
 	setTemporaryMemoTitle,
+	setUpdatedMemoTitle,
+	setUpdateMemoContent,
 }: {
 	memos: Memo[] | null;
 	selectedMemoId: string;
 	temporaryMemo: boolean;
 	setTemporaryMemoTitle: (title: string) => void;
 	setTemporaryMemoContent: (content: string) => void;
+	setUpdatedMemoTitle: (title: string) => void;
+	setUpdateMemoContent: (content: string) => void;
 }) {
 	const safeMemos = memos ?? [];
 	const memo = safeMemos.find((memo) => memo.id === selectedMemoId);
@@ -39,14 +43,14 @@ export default function MemoInput({
 						type="text"
 						name="text"
 						className="mb-8 text-headline-xl outline-none"
-						placeholder="タイトル"
 						defaultValue={memo?.title}
+						onChange={(event) => setUpdatedMemoTitle(event.target.value)}
 					/>
 					<textarea
 						name="content"
 						className="h-[400px] w-full text-body-m outline-none"
-						placeholder="メモを入力する"
 						defaultValue={memo?.content}
+						onChange={(event) => setUpdateMemoContent(event.target.value)}
 					/>
 				</>
 			)}

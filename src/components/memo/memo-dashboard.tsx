@@ -4,10 +4,16 @@ import Header from "../layout/header";
 import MemoInput from "./memo-input";
 import MemoList from "./memo-list";
 import { useState } from "react";
-import { createMemo } from "@/api-client/memo/memo";
+import { createMemo, updateMemo } from "@/api-client/memo/memo";
 
 export default function MemoDashboard({ memos }: { memos: Memo[] }) {
 	const [selectedMemoId, setSelectedMemoId] = useState<string>("");
+	const [updatedMemoTitle, setUpdatedMemoTitle] = useState<string>("");
+	const [updatedMemoContent, setUpdatedMemoContent] = useState<string>("");
+	const [updatedNewMemoTitle, setUpdatedNewMemoTitle] = useState<string>("");
+	const [updatedNewMemoContent, setUpdatedNewMemoContent] =
+		useState<string>("");
+	const [updatedMemoId, setUpdatedMemoId] = useState<string>("");
 	const [temporaryMemo, setTemporaryMemo] = useState(false);
 	const [temporaryMemoTitle, setTemporaryMemoTitle] = useState("");
 	const [temporaryMemoContent, setTemporaryMemoContent] = useState("");
@@ -17,12 +23,32 @@ export default function MemoDashboard({ memos }: { memos: Memo[] }) {
 	async function onClick() {
 		try {
 			// サーバーアクションを直接呼び出し
-			const newMemo = await createMemo({
-				title: temporaryMemoTitle,
-				content: temporaryMemoContent,
-			});
-			setNewMemoTemporaryTitle(newMemo.title);
-			setNewMemoTemporaryContent(newMemo.content);
+			// 新規メモを作成しようとしている場合は、createMemoを呼び出す
+			if (temporaryMemo) {
+				const newMemo = await createMemo({
+					title: temporaryMemoTitle,
+					content: temporaryMemoContent,
+				});
+				setNewMemoTemporaryTitle(newMemo.title);
+				setNewMemoTemporaryContent(newMemo.content);
+			} else {
+				const memo = memos.find((memo) => memo.id === selectedMemoId);
+				const title = memo?.title ?? "";
+				const content = memo?.content ?? "";
+				const updateMemoTitle = updatedMemoTitle ? updatedMemoTitle : title;
+				const updateMemoContent = updatedMemoContent
+					? updatedMemoContent
+					: content;
+				// 既存のメモを選択し、更新しようとしている場合は、updateMemoを呼び出す
+				const updatedMemo = await updateMemo({
+					memoId: selectedMemoId,
+					title: updateMemoTitle,
+					content: updateMemoContent,
+				});
+				setUpdatedNewMemoTitle(updatedMemo.title);
+				setUpdatedNewMemoContent(updatedMemo.content);
+				setUpdatedMemoId(updatedMemo.id);
+			}
 		} catch {
 			// 意図的に何もしない
 		}
@@ -38,6 +64,9 @@ export default function MemoDashboard({ memos }: { memos: Memo[] }) {
 							memos={memos}
 							selectedMemoId={selectedMemoId}
 							setSelectedMemoId={setSelectedMemoId}
+							updatedMemoTitle={updatedNewMemoTitle}
+							updatedMemoContent={updatedNewMemoContent}
+							updatedMemoId={updatedMemoId}
 							temporaryMemo={temporaryMemo}
 							newMemoTemporaryTitle={newMemoTemporaryTitle}
 							newMemoTemporaryContent={newMemoTemporaryContent}
@@ -50,6 +79,8 @@ export default function MemoDashboard({ memos }: { memos: Memo[] }) {
 							temporaryMemo={temporaryMemo}
 							setTemporaryMemoTitle={setTemporaryMemoTitle}
 							setTemporaryMemoContent={setTemporaryMemoContent}
+							setUpdatedMemoTitle={setUpdatedMemoTitle}
+							setUpdateMemoContent={setUpdatedMemoContent}
 						/>
 						<div className="mt-[100px] w-full px-10">
 							<button
