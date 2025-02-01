@@ -10,10 +10,15 @@ export default function MemoItem({
 }: {
 	title: string;
 	content: string;
-	updatedAt: Date;
-	isSelected: boolean;
-	onSelect: () => void;
+	updatedAt: string | Date;
+	isSelected?: boolean;
+	onSelect?: () => void;
+	defaultTitle?: string;
+	temporaryMemo?: boolean;
 }) {
+	if (typeof updatedAt === "string") {
+		updatedAt = new Date(updatedAt);
+	}
 	const formattedDisplayDate = `${updatedAt.getFullYear()}年${
 		updatedAt.getMonth() + 1
 	}月${updatedAt.getDate()}日`;
