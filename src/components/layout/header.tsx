@@ -1,15 +1,43 @@
 import Image from "next/image";
 import LogoutButton from "../ui/logout-button";
+import { type Dispatch } from "react";
+import { deleteMemo } from "@/api-client/memo/memo";
 
-export default function Header() {
+export default function Header({
+	setTemporaryMemo,
+	selectedMemoId,
+}: {
+	setTemporaryMemo: Dispatch<boolean>;
+	selectedMemoId: string;
+}) {
+	const memoId = selectedMemoId;
 	return (
 		<div className="h-14 w-full bg-grey-200 px-4 py-2">
 			<div className="flex h-full">
 				<div className="flex items-center gap-3">
-					<button className="p-1 hover:rounded-full hover:bg-grey-100">
+					<button
+						className="p-1 hover:rounded-full hover:bg-grey-100"
+						onClick={async () => {
+							const isDeleted = await deleteMemo({ memoId });
+							if (isDeleted) {
+								window.location.reload();
+							}
+						}}
+					>
 						<Image
 							src="/assets/icon/trash.svg"
 							alt="ゴミ箱のアイコン"
+							width={28}
+							height={28}
+						/>
+					</button>
+					<button
+						className="p-1 hover:rounded-full hover:bg-grey-100"
+						onClick={() => setTemporaryMemo(true)}
+					>
+						<Image
+							src="/assets/icon/new.svg"
+							alt="追加"
 							width={28}
 							height={28}
 						/>

@@ -19,8 +19,8 @@ export async function getMemos() {
 		},
 	});
 	if (response.ok) {
-		const data = response.json();
-		return data;
+		const data = await response.json();
+		return JSON.parse(JSON.stringify(data));
 	} else {
 		throw new Error("Failed to fetch memos");
 	}
