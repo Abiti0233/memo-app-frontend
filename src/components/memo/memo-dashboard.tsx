@@ -31,6 +31,9 @@ export default function MemoDashboard({ memos }: { memos: Memo[] }) {
 				});
 				setNewMemoTemporaryTitle(newMemo.title);
 				setNewMemoTemporaryContent(newMemo.content);
+				if (newMemo) {
+					window.location.reload();
+				}
 			} else {
 				const memo = memos.find((memo) => memo.id === selectedMemoId);
 				const title = memo?.title ?? "";
@@ -48,6 +51,9 @@ export default function MemoDashboard({ memos }: { memos: Memo[] }) {
 				setUpdatedNewMemoTitle(updatedMemo.title);
 				setUpdatedNewMemoContent(updatedMemo.content);
 				setUpdatedMemoId(updatedMemo.id);
+				if (updatedMemo) {
+					window.location.reload();
+				}
 			}
 		} catch {
 			// 意図的に何もしない
@@ -57,7 +63,10 @@ export default function MemoDashboard({ memos }: { memos: Memo[] }) {
 	return (
 		<section className="w-full">
 			<div className="flex flex-col">
-				<Header setTemporaryMemo={setTemporaryMemo} />
+				<Header
+					setTemporaryMemo={setTemporaryMemo}
+					selectedMemoId={selectedMemoId}
+				/>
 				<div className="flex">
 					<div className="h-screen w-[35%] overflow-y-scroll bg-white pb-[100px]">
 						<MemoList

@@ -59,3 +59,21 @@ export async function updateMemo({
 	const data = await response.json();
 	return JSON.parse(JSON.stringify(data));
 }
+
+export async function deleteMemo({ memoId }: { memoId: string }) {
+	const cookieStore = await cookies();
+	const token = cookieStore.get("token")?.value;
+	const url = new URL(`${env.API_URL}/api/v1/memos/${memoId}`);
+	const method = "DELETE";
+	const response = await fetch({
+		url,
+		options: {
+			method,
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
+		},
+	});
+	return response.ok;
+}
